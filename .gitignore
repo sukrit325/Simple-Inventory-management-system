@@ -5,6 +5,5 @@ test_db.py
 # Python cache
 __pycache__/
 
-# Secret keys (don't commit these!)
-SECRET_KEY = "*"
-DATABASE_URL = "*"
+# Keys
+env/
