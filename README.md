@@ -19,17 +19,23 @@ Before setting up the project, ensure you have the following installed on your m
 cd your-repo-name
 ```
 ### 2. Create and activate a virtual environment
-```python
+
 # Create the environment
+```python
 python -m venv venv
+```
 
 # Activate it (Mac/Linux)
+```
 source venv/bin/activate
+```
 
 # Activate it (Windows)
+```
 .\venv\Scripts\activate
 ```
-### 3. Install requirements 
+### 3. Install requirements
+ 
 ```bash
 pip install -r requirements.txt
 ```
