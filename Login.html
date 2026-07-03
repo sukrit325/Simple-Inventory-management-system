@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory-Management-System</title>
+    <link rel="stylesheet" href="login.css"/>
+</head>
+<body class="auth-page">
+    <main>
+        <header>
+            <h1>Inventory Management System</h1>
+        </header>
+        <div class="login-page">
+            <form>
+                <h2>Login</h2>
+                <div class="input-group">
+                    <label for="username"> Username: </label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username:" required/>
+                </div>
+                <div class="input-group">
+                    <label for="password"> Password: </label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password:" required/>
+                </div>
+                <div class="btn-group">
+                    <button id="btn" class="btn-primary" type="button">Login</button>
+                </div>
+                <p class="form-footer">
+                    Don't have an account? <a href="register.html">Create account</a>
+                </p>
+            </form>
+        </div>
+    </main>
+    <script>
+        console.log("[LOGIN PAGE] Page loaded");
+        const API_URL = "http://127.0.0.1:8000";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("[LOGIN PAGE] DOM loaded, setting up login button");
+            const loginButton = document.getElementById("btn");
+            if (loginButton) {
+                loginButton.addEventListener("click", async (e) => {
+                    e.preventDefault();
+                    const usernameInput = document.getElementById("username").value.trim();
+                    const passwordInput = document.getElementById("password").value;
+
+                    console.log(`[LOGIN] Attempting login for user: ${usernameInput}`);
+
+                    if (!usernameInput || !passwordInput) {
+                        console.warn("[LOGIN] Validation failed - missing username or password");
+                        alert("Please fill all the fields");
+                        return;
+                    }
+
+                    const formData = new URLSearchParams();
+                    formData.append("username", usernameInput);
+                    formData.append("password", passwordInput);
+
+                    try {
+                        console.log("[LOGIN] Sending POST request to /users/login");
+                        const response = await fetch(`${API_URL}/users/login`, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/x-www-form-urlencoded",
+                            },
+                            body: formData
+                        });
+                        console.log(`[LOGIN] Response status: ${response.status}`);
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            console.log("[LOGIN] Login successful - saving token and username");
+                            alert("Login successful!");
+                            localStorage.setItem("token", data.access_token);
+                            localStorage.setItem("username", usernameInput);
+                            console.log("[LOGIN] Redirecting to dashboard");
+                            window.location.href = "home.html";
+                        } else {
+                            let errorMessage = "Invalid Credentials";
+                            if (typeof data.detail === "string") {
+                                errorMessage = data.detail;
+                            } else if (data.detail?.[0]?.msg) {
+                                errorMessage = data.detail[0].msg;
+                            } else if (data.detail) {
+                                errorMessage = JSON.stringify(data.detail);
+                            }
+                            console.error(`[LOGIN] Login failed: ${errorMessage}`);
+                            alert("Login failed: " + errorMessage);
+                        }
+                    } catch (error) {
+                        console.error("[LOGIN] Network connection error:", error);
+                        alert("Can't connect to FastAPI");
+                    }
+                });
+            }
+        });    
+    </script>
+</body>
+</html>

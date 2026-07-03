@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventory-Management-System</title>
+    <link rel="stylesheet" href="login.css"/>
+    <script src="Login.js" defer></script>
+</head>
+<body class="auth-page">
+    <main>
+        <header>
+            <h1>Inventory Management System</h1>
+        </header>
+        <div class="login-page">
+            <form>
+                <h2>Create Account</h2>
+                <div class="input-group">
+                    <label for="fullname"> Name: </label>
+                    <input type="text" name="fullname" id="fullname" placeholder="Enter your name:" required/>
+                </div>
+                <div class="input-group">
+                    <label for="username"> Username: </label>
+                    <input type="text" name="username" id="username" placeholder="Enter your username:" required/>
+                </div>
+                <div class="input-group">
+                    <label for="email"> Email: </label>
+                    <input type="email" name="email" id="email" placeholder="Enter your email:" required/>
+                </div>
+                <div class="input-group">
+                    <label for="password"> Password: </label>
+                    <input type="password" name="password" id="password" placeholder="Enter your password:" required/>
+                </div>
+                <div class="input-group">
+                    <label for="confirm_password"> Confirm password: </label>
+                    <input type="password" name="confirm_password" id="confirm_password" placeholder="Re-enter your password:" required/>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn-primary">Create Account</button>
+                </div>
+                <p class="form-footer">
+                    Already have an account? <a href="Login.html">Login here</a>
+                </p>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
